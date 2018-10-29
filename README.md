@@ -33,8 +33,6 @@ Type: --
 
 Total NetValue: R$4.500,00
 Total Profit: R$1.500,00
-
-Total Value: R$3.000,00 
 ~~~~
 
 To use this you'll need to get the `credentials` data from your account. 
