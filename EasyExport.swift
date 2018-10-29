@@ -35,6 +35,9 @@ struct Investment: Codable {
     let priceCurrent: Decimal
     let netValue: Decimal
     var index: String?
+    var profit: Decimal {
+        return netValue - investedCapital
+    }
 }
 
 struct Custody: Codable {
@@ -63,18 +66,34 @@ struct Printer {
             do {
                 let decoder = JSONDecoder()
                 let custody = try decoder.decode(Custody.self, from: data)
-                var total: Decimal = 0.0
-                
+                var totalNetValue: Decimal = 0.0
+                var totalProfit: Decimal = 0.0
+
                 let formatter = NumberFormatter()
                 formatter.locale = Locale.current
                 formatter.numberStyle = .currency
+                print("")
                 
                 for item in custody.result {
-                    let amount = formatter.string(for: item.netValue) ?? "--"
-                    print("* \(item.nickName.trim()) * \nNetValue: \(amount) \nIndex: \(item.index ?? "--") \nType: \(item.fixedIncomeSecurityType ?? "--")\n")
-                    total += item.netValue
+                    let netValue = formatter.string(for: item.netValue) ?? "--"
+                    let invested = formatter.string(for: item.investedCapital) ?? "--"
+                    let profit = formatter.string(for: (item.profit)) ?? "--"
+                    print("""
+                        * \(item.nickName.trim()) *
+                        Invested: \(invested)
+                        NetValue: \(netValue)
+                        Profit: \(profit)
+                        Index: \(item.index ?? "--")
+                        Type: \(item.fixedIncomeSecurityType ?? "--")
+                        
+                        """)
+                    totalNetValue += item.netValue
+                    totalProfit += item.profit
                 }
-                print("Total Value: \(formatter.string(for: total) ?? "--")")
+                print("""
+                    Total NetValue: \(formatter.string(for: totalNetValue) ?? "--")
+                    Total Profit: \(formatter.string(for: totalProfit) ?? "--")
+                    """)
             } catch {
                 print("Error \(error)")
             }

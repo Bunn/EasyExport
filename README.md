@@ -11,19 +11,28 @@ Fetching auth token...
 Fetching investments...
 
 * BANCO PINE S/A * 
-NetValue: R$1.000,00 
-Index: 114% do CDI 
+Invested: R$1.000,00
+NetValue: R$1.500,00
+Profit: R$500,00
+Index: 99% do CDI
 Type: CDB
 
 * BANCO ORIGINAL S/A * 
-NetValue: R$1.000,00 
+Invested: R$1.000,00
+NetValue: R$1.500,00
+Profit: R$500,00
 Index: 95% do CDI 
 Type: LCI
 
 * ALASKA BLACK FIC FIA II * 
-NetValue: R$1.000,00 
+Invested: R$1.000,00
+NetValue: R$1.500,00
+Profit: R$500,00
 Index: -- 
 Type: --
+
+Total NetValue: R$4.500,00
+Total Profit: R$1.500,00
 
 Total Value: R$3.000,00 
 ~~~~
