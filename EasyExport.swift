@@ -144,7 +144,6 @@ struct Network {
             }
         })
         task.resume()
-        session.finishTasksAndInvalidate()
     }
     
     private func fetchInvestments(token: Token, completion:@escaping ()->()) {
@@ -170,7 +169,6 @@ struct Network {
             completion()
         })
         task.resume()
-        session.finishTasksAndInvalidate()
     }
     
     func printInvestments(completion:@escaping ()->()) {
