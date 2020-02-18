@@ -122,24 +122,25 @@ struct Network {
         request.httpBody = credentials.data(using: .utf8, allowLossyConversion: true)
         
         let task = session.dataTask(with: request, completionHandler: { (data: Data?, response: URLResponse?, error: Error?) -> Void in
-            if (error == nil) {
-                if let data = data {
-                    do {
-                        let decoder = JSONDecoder()
-                        decoder.keyDecodingStrategy = .convertFromSnakeCase
-                        let token = try decoder.decode(Token.self, from: data)
-                        completion(token)
-                    } catch {
-                        print("Error \(error)")
-                        completion(nil)
-                    }
-                } else {
-                    completion(nil)
-                }
-            }
-            else {
+            if error != nil {
                 completion(nil)
-                print("URL Session Task Failed: %@", error!.localizedDescription);
+                print("URL Session Task Failed: %@", error!.localizedDescription)
+                return
+            }
+            
+            guard let data = data else {
+                completion(nil)
+                return
+            }
+            
+            do {
+                let decoder = JSONDecoder()
+                decoder.keyDecodingStrategy = .convertFromSnakeCase
+                let token = try decoder.decode(Token.self, from: data)
+                completion(token)
+            } catch {
+                print("Error \(error)")
+                completion(nil)
             }
         })
         task.resume()
